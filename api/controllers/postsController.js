@@ -114,5 +114,5 @@ exports.deletePost = (req, res) => {
         res.status(STATUS_USER_ERROR);
         res.json(err);
     });
-};
+}; 
 
