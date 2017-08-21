@@ -1,7 +1,7 @@
 # Mongo III Mini Sprint
 
 ## Topics
- * [Mongoose's Populate Method](https://mongoosejs.com/docs/populate.html)
+ * [Mongoose's Populate Method](mongoosejs.com/docs/populate.html)
  * Model / Controller / Routes organization
 
 ## Running the Project
