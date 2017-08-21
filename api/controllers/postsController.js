@@ -7,59 +7,122 @@ const STATUS_USER_ERROR = 422;
 
 /* Fill in each of the below controller methods */
 
-const sendUserError = (err, res) => {
-  res.status(STATUS_USER_ERROR);
-  if (typeof err === 'string') {
-    res.json({ error: err });
-  } else {
-    res.json(err);
-  }
-};
-
 const createPost = (req, res) => {
-  const { title, text } = req.body;
-  if (!title || !text) {
-    sendUserError('Please enter BOTH a TITLE and TEXT.', res);
-    return;
-  }
-  const post = new Post({ title, text });
-  Post.save((err) => {
-    if (err) {
-      res.json(err);
-    } else {
-      res.json(post);
-    }
-  });
+  const { title, text } = req.query;
+  const newPost = new Post({ title, text });
+  newPost.save()
+         .then((theNewPost) => {
+           res.json(newPost);
+         })
+         .catch((err) => {
+           res.status(STATUS_USER_ERROR);
+           res.json(err);
+         });
 };
 
 const listPosts = (req, res) => {
-  Post.find({}, (err, posts) => {
-    if (!posts) {
-      sendUserError('There is nothing posted', res);
-      return;
-    }
-    if (err) {
-      sendUserError(err, res);
-      return;
-    }
-    res.json(posts);
-  });
+  Post.find({})
+    .populate('comments', 'text')
+    .exec()
+    .then((posts) => {
+      res.json(posts);
+    })
+    .catch((err) => {
+      res.status(STATUS_USER_ERROR);
+      res.json({ stack: err.stack, message: err.message });
+    });
 };
 
 const findPost = (req, res) => {
-
+  const { id } = req.params;
+  Post.findById(id)
+  .populate('comments', 'text')
+  .exec()
+  .then((post) => {
+    res.json(post);
+  })
+  .catch((err) => {
+    res.status(STATUS_USER_ERROR);
+    res.json(err);
+  });
 };
 
 const addComment = (req, res) => {
+  const { id } = req.params;
+  const { text } = req.query;
 
+  const newComment = new Comment({ _parent: id, text });
+  newComment.save()
+    .then((comment) => {
+      Post.findById(id)
+        .exec()
+        .then((post) => {
+          post.comments.push(newComment);
+          post.save();
+          res.send({ success: true });
+        })
+        .catch((err) => {
+          res.status(STATUS_USER_ERROR);
+          res.json(err);
+        });
+    })
+    .catch((err) => {
+      res.status(STATUS_USER_ERROR);
+      res.json(err);
+    });
 };
 
 const deleteComment = (req, res) => {
+  const { id, commentId } = req.params;
 
+  const comment = Comment.findByIdAndRemove(commentId)
+    .exec()
+    .then((aComment) => {
+      return Promise.resolve(comment);
+    })
+    .catch((err) => {
+      res.status(STATUS_USER_ERROR);
+      res.json(err);
+    });
+
+  Post.findById(id)
+  .exec()
+  .then((post) => {
+    const index = post.comments.findIndex((c) => {
+      c._id === comment._id;
+    });
+    post.comments.splice(index, 1);
+    res.json({ success: true });
+  })
+  .catch((err) => {
+    res.status(STATUS_USER_ERROR);
+    res.json(err);
+  });
 };
 
 const deletePost = (req, res) => {
+  const { id } = req.params;
+  const comments = Post.findByIdAndRemove(id)
+  .exec()
+  .then((post) => {
+    return Promise.resolve(post, comments);
+  })
+  .catch((err) => {
+    res.status(STATUS_USER_ERROR);
+    res.json(err);
+  });
 
+  Comment.remove({
+    _id: { $in: comments }
+  })
+  .exec()
+  .then(() => {
+    res.json({ success: true });
+  })
+  .catch((err) => {
+    res.status(STATUS_USER_ERROR);
+    res.json(err);
+  });
 };
 
 module.exports = {
