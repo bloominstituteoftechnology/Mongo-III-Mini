@@ -6,6 +6,10 @@
   "scripts": {
     "start": "eslint *.js && nodemon server.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mixelpixel/Mongo-III-Mini.git"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
