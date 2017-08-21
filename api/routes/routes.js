@@ -1,5 +1,5 @@
 module.exports = (app) => {
-  const controllerMethods = require('../controllers/postsController');
+  const controllerMethods = require('../controllers/postsController'); // eslint-disable-line global-require
 
   app.route('/posts')
      .get(controllerMethods.listPosts)
