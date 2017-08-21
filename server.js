@@ -12,29 +12,16 @@ const Routes = require('./api/routes/routes');
 
 mongoose.Promise = global.Promise;
 const connect = mongoose.connect(
-<<<<<<< HEAD
-  'mongodb://localhost/Postdb',
-  { useMongoClient: true }
-=======
-    'mongodb://localhost/post-db', 
+    'mongodb://localhost/post-db',
     { useMongoClient: true }
->>>>>>> 7a0768a28f7a7038be327228bdbd6d232ccee95b
 );
 
 /* eslint no-console: 0 */
 connect.then(() => {
-<<<<<<< HEAD
   const port = 3000;
   Routes(server);
   server.listen(3000);
   console.log(`Server listening on port ${port}`);
-=======
-    const port = 3000;
-    const routes = require('./api/routes/routes');
-    routes(server);
-    server.listen(3000);
-    console.log(`Server listening on port ${port}`);
->>>>>>> 7a0768a28f7a7038be327228bdbd6d232ccee95b
 }, (err) => {
   console.log('\n**********************');
   console.log('ERROR: Failed to connect to MongoDB.');
