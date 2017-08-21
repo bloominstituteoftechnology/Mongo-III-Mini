@@ -28,14 +28,13 @@ const deleteComment = (req, res) => {
 
 const deletePost = (req, res) => {
 
-}; 
-
-module.exports = {
-    createPost,
-    listPosts,
-    findPost,
-    addComment,
-    deleteComment,
-    deletePost
 };
 
+module.exports = {
+  createPost,
+  listPosts,
+  findPost,
+  addComment,
+  deleteComment,
+  deletePost
+};
