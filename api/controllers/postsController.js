@@ -17,16 +17,30 @@ const sendUserError = (err, res) => {
 };
 
 const createPost = (req, res) => {
-
+  const { title, text } = req.body;
+  if (!title || !text) {
+    sendUserError('Please enter BOTH a TITLE and TEXT.', res);
+    return;
+  }
+  const post = new Post({ title, text });
+  Post.save((err) => {
+    if (err) {
+      res.json(err);
+    } else {
+      res.json(post);
+    }
+  });
 };
 
 const listPosts = (req, res) => {
   Post.find({}, (err, posts) => {
     if (!posts) {
       sendUserError('There is nothing posted', res);
+      return;
     }
     if (err) {
       sendUserError(err, res);
+      return;
     }
     res.json(posts);
   });
