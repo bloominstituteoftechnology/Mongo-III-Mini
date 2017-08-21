@@ -6,27 +6,36 @@ const Comment = mongoose.model('Comment');
 const STATUS_USER_ERROR = 422;
 
 /* Fill in each of the below controller methods */
-exports.createPost = (req, res) => {
+const createPost = (req, res) => {
 
 };
 
-exports.listPosts = (req, res) => {
+const listPosts = (req, res) => {
 
 };
 
-exports.findPost = (req, res) => {
+const findPost = (req, res) => {
 
 };
 
-exports.addComment = (req, res) => {
+const addComment = (req, res) => {
 
 };
 
-exports.deleteComment = (req, res) => {
+const deleteComment = (req, res) => {
 
 };
 
-exports.deletePost = (req, res) => {
+const deletePost = (req, res) => {
 
 }; 
+
+module.exports = {
+    createPost,
+    listPosts,
+    findPost,
+    addComment,
+    deleteComment,
+    deletePost
+};
 
