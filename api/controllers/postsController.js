@@ -8,6 +8,7 @@ const STATUS_USER_ERROR = 422;
 /* Fill in each of the below controller methods */
 
 const createPost = (req, res) => {
+<<<<<<< HEAD
   const { title, text } = req.query;
   const newPost = new Post({ title, text });
   newPost.save()
@@ -96,6 +97,30 @@ const deleteComment = (req, res) => {
       res.status(STATUS_USER_ERROR);
       res.json(err);
     });
+=======
+
+};
+
+const listPosts = (req, res) => {
+
+};
+
+const findPost = (req, res) => {
+
+};
+
+const addComment = (req, res) => {
+
+};
+
+const deleteComment = (req, res) => {
+
+};
+
+const deletePost = (req, res) => {
+
+}; 
+>>>>>>> a78bdc2d2186c4df20de8eaf5e610fa731e72b6a
 
   Post.findById(id)
   .exec()
