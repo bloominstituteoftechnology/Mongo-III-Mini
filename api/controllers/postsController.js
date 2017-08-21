@@ -20,6 +20,18 @@ const createPost = (req, res) => {
          });
 };
 
+const listPost = (req, res) => {
+  Post.find({})
+    .populate('commants', 'text')
+    .exec((err, posts) => {
+      if (err) {
+        res.status(STATUS_USER_ERROR);
+        res.json(err);
+      }
+      res.json(posts);
+    });
+};
+
 const listPosts = (req, res) => {
   Post.find({})
     .populate('comments', 'text')
