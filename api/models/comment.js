@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const CommentSchema = new mongoose.Schema({
-    _parent: { 
-        type: mongoose.Schema.Types.ObjectId, 
+    _parent: {
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Post'
     },
     text: {
