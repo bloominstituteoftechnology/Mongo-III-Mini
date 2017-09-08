@@ -23,7 +23,7 @@ const addComment = (req, res) => {
 };
 
 // In this function, we need to delete the comment document
-// We also need to delete the comment's parent post's reference 
+// We also need to delete the comment's parent post's reference
 // to the comment we just deleted
 const deleteComment = (req, res) => {
 
@@ -34,14 +34,14 @@ const deleteComment = (req, res) => {
 // We don't want any orphaned children in our database
 const deletePost = (req, res) => {
 
-}; 
+};
 
 module.exports = {
-    createPost,
-    listPosts,
-    findPost,
-    addComment,
-    deleteComment,
-    deletePost
+  createPost,
+  listPosts,
+  findPost,
+  addComment,
+  deleteComment,
+  deletePost
 };
 
