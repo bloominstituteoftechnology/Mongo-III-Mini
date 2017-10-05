@@ -13,7 +13,7 @@
  For this mini sprint, there are two models we'll be utilizing: the Post model and the Comment model. 
  The Comment model depends upon the Post model. You'll notice that the in the Post model schema we have this line
  ```
- comments: [{ type: mongoose.Schema.Types.Number, ref: 'Comment' }]
+ comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }]
  ```
  This line specifies the `comments` field on the Post schema, which is an array populated by comment IDs.
  This is where the `populate()` method that Mongoose provides comes in. When we fetch a post, we want to
