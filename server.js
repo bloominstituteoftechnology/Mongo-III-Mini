@@ -1,10 +1,12 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
-const routes = require('./api/routes/routes');
 
 const Post = require('./api/models/post');
 const Comment = require('./api/models/comment');
+
+const routes = require('./api/routes/routes');
+
 
 const server = express();
 server.use(bodyParser.json());
