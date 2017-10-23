@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-const Post = require('../models/post');
-const Comment = require('../models/comment');
+const Post = mongoose.model('Post');
+const Comment = mongoose.model('Comment');
 
 const STATUS_USER_ERROR = 422;
 
