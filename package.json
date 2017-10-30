@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "eslint *.js && nodemon server.js"
+    "start": "eslint *.js && nodemon server.js",
+    "mongo": "mongod --dbpath data/db",
+    "devw": "start npm run mongo && start npm run start",
+    "devl": "npm run mongo & npm run start"
   },
   "author": "",
   "license": "ISC",

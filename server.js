@@ -6,6 +6,7 @@ const routes = require('./api/routes/routes');
 const Post = require('./api/models/post');
 const Comment = require('./api/models/comment');
 
+
 const server = express();
 server.use(bodyParser.json());
 
