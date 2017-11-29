@@ -1,25 +1,60 @@
 const mongoose = require('mongoose');
 
-const Post = mongoose.model('Post');
-const Comment = mongoose.model('Comment');
+const Post = mongoose.model('../models/post.js');
+const Comment = mongoose.model('../models/comment.js');
 
 const STATUS_USER_ERROR = 422;
 
 /* Fill in each of the below controller methods */
 const createPost = (req, res) => {
-
+  const { title, text } = req.body;
+  const newPost = new Post({ title, text });
+  newPost
+    .save()
+    .then((createdPost) => {
+      res.json(createdPost);
+    })
+    .catch((err) => {
+      res.status(STATUS_USER_ERROR).json({ errorMessage: err.message });
+      return;
+    });
 };
 
 const listPosts = (req, res) => {
-
-};
-
-const findPost = (req, res) => {
-
+  Post.find({})
+    .populate('comments', 'text')
+    .exec()
+    .then((posts) => {
+      res.json(posts);
+    })
+    .catch((err) => {
+      res.status(STATUS_USER_ERROR).json(err);
+      return;
+    });
 };
 
 const addComment = (req, res) => {
-
+  const { id } = req.params;
+  const { text } = req.body;
+  const newComment = new Comment({ _parent: id, text });
+  newComment
+    .save()
+    .then((comment) => {
+      Post.findById(id, (postErr, post) => {
+        if (postErr || !post) {
+          res.status(422);
+          res.json({ message: `Post not found at id ${id}` });
+          return;
+        }
+        post.comments.push(comment);
+        post.save();
+        res.json({ success: 'Hooray!' });
+      });
+    })
+    .catch((err) => {
+      res.status(422).json({ errorMessage: err.message });
+      return;
+    });
 };
 
 // In this function, we need to delete the comment document
