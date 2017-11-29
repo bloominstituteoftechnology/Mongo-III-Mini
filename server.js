@@ -1,8 +1,8 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
-const routes = require('./api/routes/routes');
 
+const routes = require('./api/routes/routes');
 const Post = require('./api/models/post');
 const Comment = require('./api/models/comment');
 
@@ -16,6 +16,7 @@ const connect = mongoose.connect(
 );
 
 connect.then(() => {
+  /* eslint-disable no-console */
   const port = 3000;
   routes(server);
   server.listen(3000);

@@ -11,7 +11,9 @@ module.exports = (app) => {
     .get(controllerMethods.findPost)
     .delete(controllerMethods.deletePost);
 
-  app.route('/posts/:id/comments').post(controllerMethods.addComment);
+  app
+    .route('/posts/:id/comments')
+    .post(controllerMethods.addComment);
 
   app
     .route('/posts/:id/comments/:commentId')
