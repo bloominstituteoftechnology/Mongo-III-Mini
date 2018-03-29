@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const PostSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true
+    // required: true
   },
   text: {
     type: String,
-    required: true
+    // required: true
   },
   comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }]
 });

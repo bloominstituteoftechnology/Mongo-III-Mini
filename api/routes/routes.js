@@ -1,6 +1,7 @@
-const controllerMethods = require('../controllers/postsController');
+// const controllerMethods = require('../controllers/postsController');
 
 module.exports = (app) => {
+  const controllerMethods = require('../controllers/postsController');
   app
     .route('/posts')
     .get(controllerMethods.listPosts)
